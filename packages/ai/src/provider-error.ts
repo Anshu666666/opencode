@@ -57,7 +57,13 @@ const patterns = [
   /request_too_large/i,
 ]
 
-const payloadPatterns = [/request entity too large/i, /payload too large/i, /request too large/i]
+// OpenCode Zen (airlock) reports its request-body limit for media as "inlined media exceeds the <n> byte total limit".
+const payloadPatterns = [
+  /request entity too large/i,
+  /payload too large/i,
+  /request too large/i,
+  /inlined media exceeds/i,
+]
 
 const exclusions = [
   /^(throttling error|service unavailable):/i,

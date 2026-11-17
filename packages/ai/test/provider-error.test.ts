@@ -42,6 +42,15 @@ describe("provider error classification", () => {
     const failures = [
       classifyProviderFailure({ message: "request too large", status: 413 }),
       classifyProviderFailure({ message: "upstream request entity too large", status: 502 }),
+      // OpenCode Zen (airlock) body-size rejection for media, as seen with many images inline in one request.
+      classifyProviderFailure({
+        message: "Upstream request failed: [airlock_error] inlined media exceeds the 56623104 byte total limit",
+        status: 400,
+      }),
+      classifyProviderFailure({
+        message: "inlined media exceeds the 56623104 byte total limit",
+        status: 400,
+      }),
     ]
 
     expect(failures).toEqual(
